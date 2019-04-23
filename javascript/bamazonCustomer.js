@@ -59,23 +59,22 @@ function start(){
             message: "What quantity of the Item would you like to buy?" 
         }
     ]).then(function(answer) {
-        // var chosenItem;
-        // for (var i = 0; i < results.length; i++) {
-        //   if (results[i].item_name === answer.whichToBuy) {
-        //     chosenItem = results[i];
-        //   }
-        // }
-        console.log("Item ID: " + answer.whichToBuy + " | " + "Quantity to buy: " + answer.howMany);
-          // based on their answer, either call the bid or the post functions
-          
-        //   if (answer.whichToBuy === "1") {
-        //     postAuction();
-        //   }
-        //   else if(answer.postOrBid === "BID") {
-        //     bidAuction();
-        //   } else{
-        // connection.end();
-        //   }
+        var chosenItem;
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].item_id === answer.whichToBuy) {
+            chosenItem = results[i];
+          }
+        }
+        // console.log(chosenItem.product_name);
+        if(chosenItem.stock_quantity <= 0){
+            console.log("We're all out of that! Please select another item to purchase.");
+            start();
+        }
+
+        chosenItem.stock_quantity -= 1;
+        console.log("Your total comes to $" + chosenItem.price + ". Thank you for shopping at Bamazon!");
+        
+        // start();
         });
     });
 }
